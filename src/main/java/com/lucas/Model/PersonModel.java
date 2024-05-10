@@ -1,4 +1,4 @@
 package com.lucas.Model;
 
-public class Person {
+public class PersonModel {
 }

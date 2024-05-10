@@ -1,4 +1,5 @@
 package com.lucas.DTO;
 
-public class PersonDTO {
+public class ClientDTO {
+
 }

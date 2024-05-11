@@ -20,28 +20,28 @@ public class ClientController {
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
         long actualTime = System.currentTimeMillis();
         ResponseEntity<List<ClientResponseDTO>> response = clientService.getAllClients();
-        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
         return response;
     }
     @PostMapping
     public ResponseEntity<String> saveClient(@RequestBody ClientRequestDTO clientData) {
         long actualTime = System.currentTimeMillis();
         ResponseEntity<String> response = clientService.saveClient(clientData);
-        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
         return response;
     }
     @PutMapping
     public ResponseEntity<String> updateClient(@RequestParam String email, @RequestBody ClientRequestDTO clientData) {
         long actualTime = System.currentTimeMillis();
         ResponseEntity<String> response = clientService.updateClient(clientData, email);
-        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
         return response;
     }
     @DeleteMapping ("/{email}")
     public ResponseEntity<String> deleteClient(@PathVariable String email) {
         long actualTime = System.currentTimeMillis();
         ResponseEntity<String> response = clientService.deleteClient(email);
-        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
         return response;
     }
 }

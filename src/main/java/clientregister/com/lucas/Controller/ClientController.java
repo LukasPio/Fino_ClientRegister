@@ -9,10 +9,4 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(path = "/api/client")
 public class ClientController {
-    @GetMapping(path = "/hello")
-    public ResponseEntity<String> helloWorld() {
-        System.out.println("get mapping");
-        return ResponseEntity.status(HttpStatus.OK).body("Augusto é gay demais mesmo");
-    }
-
 }

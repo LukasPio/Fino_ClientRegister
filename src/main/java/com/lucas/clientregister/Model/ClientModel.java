@@ -25,7 +25,7 @@ public class ClientModel {
     private String email;
     private Date birthdate;
     private Timestamp created_at;
-    private Timestamp update_at;
+    private Timestamp updated_at;
 
     public ClientModel (ClientRequestDTO clientRequestDTO) {
         this.name = clientRequestDTO.name();
@@ -33,6 +33,6 @@ public class ClientModel {
         this.email = clientRequestDTO.email();
         this.birthdate = clientRequestDTO.birthdate();
         this.created_at = new Timestamp(System.currentTimeMillis());
-        this.update_at = new Timestamp(System.currentTimeMillis());
+        this.updated_at = new Timestamp(System.currentTimeMillis());
     }
 }

@@ -29,7 +29,7 @@ public class ClientService {
         client.setSurname(clientData.surname());
         client.setEmail(clientData.email());
         client.setBirthdate(clientData.birthdate());
-        client.setUpdate_at(new Timestamp(System.currentTimeMillis()));
+        client.setUpdated_at(new Timestamp(System.currentTimeMillis()));
         clientRepository.save(client);
         return ResponseEntity.status(HttpStatus.OK).body("User was updated successfully.");
     }

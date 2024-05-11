@@ -1,5 +1,6 @@
 package com.lucas.clientregister.Controller;
 
+import com.lucas.clientregister.ClientRegisterApplication;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.Service.ClientService;
@@ -17,18 +18,30 @@ public class ClientController {
     }
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
-        return clientService.getAllClients();
+        long actualTime = System.currentTimeMillis();
+        ResponseEntity<List<ClientResponseDTO>> response = clientService.getAllClients();
+        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        return response;
     }
     @PostMapping
     public ResponseEntity<String> saveClient(@RequestBody ClientRequestDTO clientData) {
-        return clientService.saveClient(clientData);
+        long actualTime = System.currentTimeMillis();
+        ResponseEntity<String> response = clientService.saveClient(clientData);
+        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        return response;
     }
     @PutMapping
     public ResponseEntity<String> updateClient(@RequestParam String email, @RequestBody ClientRequestDTO clientData) {
-        return clientService.updateClient(clientData, email);
+        long actualTime = System.currentTimeMillis();
+        ResponseEntity<String> response = clientService.updateClient(clientData, email);
+        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        return response;
     }
     @DeleteMapping ("/{email}")
     public ResponseEntity<String> deleteClient(@PathVariable String email) {
-        return clientService.deleteClient(email);
+        long actualTime = System.currentTimeMillis();
+        ResponseEntity<String> response = clientService.deleteClient(email);
+        ClientRegisterApplication.logger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
+        return response;
     }
 }

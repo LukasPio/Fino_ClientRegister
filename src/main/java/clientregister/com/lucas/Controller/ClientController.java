@@ -1,4 +1,4 @@
-package com.lucas.Controller;
+package clientregister.com.lucas.Controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package com.lucas.Service;
+package clientregister.com.lucas.Service;
 
 import org.springframework.stereotype.Service;
 

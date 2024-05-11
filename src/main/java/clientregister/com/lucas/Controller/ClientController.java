@@ -12,7 +12,7 @@ public class ClientController {
     @GetMapping(path = "/hello")
     public ResponseEntity<String> helloWorld() {
         System.out.println("get mapping");
-        return ResponseEntity.status(HttpStatus.OK).body("Augusto é gay");
+        return ResponseEntity.status(HttpStatus.OK).body("Augusto é gay demais");
     }
 
 }

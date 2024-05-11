@@ -1,4 +1,4 @@
-package com.lucas.Model;
+package clientregister.com.lucas.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

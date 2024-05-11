@@ -1,15 +1,17 @@
 package com.lucas.clientregister.Service;
 
 import com.lucas.clientregister.DTO.ClientRequestDTO;
+import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.Model.ClientModel;
 import com.lucas.clientregister.Repository.ClientRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.List;
+
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
@@ -40,5 +42,14 @@ public class ClientService {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email: "+email+" is not registered.");
         clientRepository.deleteByEmail(email);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Client with email: "+email+" was deleted successfully.");
+    }
+
+    public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
+        List<ClientModel> clientsModels = clientRepository.findAll();
+        if (clientsModels.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
+        return ResponseEntity.status(HttpStatus.OK).body(clients);
     }
 }

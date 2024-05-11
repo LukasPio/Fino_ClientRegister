@@ -6,7 +6,6 @@ import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.Model.ClientModel;
 import com.lucas.clientregister.Repository.ClientRepository;
 import jakarta.transaction.Transactional;
-import lombok.extern.flogger.Flogger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,7 +21,7 @@ public class ClientService {
     }
     public ResponseEntity<String> saveClient(ClientRequestDTO clientData) {
         if (clientRepository.existsByEmail(clientData.email())){
-            ClientRegisterApplication.logger.info(
+            ClientRegisterApplication.logger.warn(
                     "Trying save a user with email: {} but already is registered.",
                     clientData.email()
             );

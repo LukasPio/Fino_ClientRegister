@@ -3,9 +3,11 @@ spring:
     time-zone: America/Sao_Paulo
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/client
+    url: jdbc:mariadb://localhost:3030/client
     username: root
+    password: root
+
 server:
   port: 8080
 
-  ## cmowemvof43momefvowm4
+# caralho

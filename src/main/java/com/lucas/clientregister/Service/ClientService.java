@@ -68,11 +68,11 @@ public class ClientService {
 
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
         List<ClientModel> clientsModels = clientRepository.findAll();
+        List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         if (clientsModels.isEmpty()) {
             Logger.log("WARN", "Trying to view all clients, but none registered.");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clients);
         }
-        List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         Logger.log(
                 "INFO",
                 "Getting all clients of database.");

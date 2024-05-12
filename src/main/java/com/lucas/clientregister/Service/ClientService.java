@@ -30,6 +30,7 @@ public class ClientService {
         Logger.log(
                 "INFO",
                 "Client with email: "+clientData.email()+" was registered successfully");
+        clientRepository.save(new ClientModel(clientData));
         return ResponseEntity.status(HttpStatus.CREATED).body("Client was registered successfully");
     }
     public ResponseEntity<String> updateClient(ClientRequestDTO clientData, String email) {

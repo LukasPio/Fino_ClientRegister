@@ -64,7 +64,7 @@ public class ClientService {
         }
         clientRepository.deleteByEmail(email);
         ClientRegisterApplication.applicationLogger.info("Client with email: {} was deleted successfully", email);
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Client with email: "+email+" was deleted successfully");
+        return ResponseEntity.status(HttpStatus.OK).body("Client with email: "+email+" was deleted successfully");
     }
 
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {

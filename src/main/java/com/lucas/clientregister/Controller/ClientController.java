@@ -1,6 +1,6 @@
 package com.lucas.clientregister.Controller;
 
-import com.lucas.clientregister.ClientRegisterApplication;
+import com.lucas.clientregister.utils.ClientRegisterApplication;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.Service.ClientService;

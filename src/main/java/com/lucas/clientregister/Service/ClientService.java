@@ -1,9 +1,9 @@
 package com.lucas.clientregister.Service;
 
-import com.lucas.clientregister.ClientRegisterApplication;
+import com.lucas.clientregister.utils.ClientRegisterApplication;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
-import com.lucas.clientregister.Logger;
+import com.lucas.clientregister.utils.Logger;
 import com.lucas.clientregister.Model.ClientModel;
 import com.lucas.clientregister.Repository.ClientRepository;
 import jakarta.transaction.Transactional;

@@ -1,4 +1,4 @@
-package com.lucas.clientregister;
+package com.lucas.clientregister.utils;
 
 import java.sql.Timestamp;
 

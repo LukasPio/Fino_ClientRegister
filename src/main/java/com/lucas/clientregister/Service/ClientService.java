@@ -81,8 +81,4 @@ public class ClientService {
                 "Getting all clients of database.");
         return ResponseEntity.status(HttpStatus.OK).body(clients);
     }
-
-    private void timeElapsed() {
-
-    }
 }

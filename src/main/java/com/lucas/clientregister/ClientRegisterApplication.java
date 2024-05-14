@@ -1,4 +1,4 @@
-package com.lucas.clientregister.utils;
+package com.lucas.clientregister;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

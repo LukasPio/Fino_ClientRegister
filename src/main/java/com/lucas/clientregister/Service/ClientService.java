@@ -1,6 +1,6 @@
 package com.lucas.clientregister.Service;
 
-import com.lucas.clientregister.utils.ClientRegisterApplication;
+import com.lucas.clientregister.ClientRegisterApplication;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.utils.Logger;
@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -34,14 +35,15 @@ public class ClientService {
         return ResponseEntity.status(HttpStatus.CREATED).body("Client was registered successfully");
     }
     public ResponseEntity<String> updateClient(ClientRequestDTO clientData, String email) {
-        if (!clientRepository.existsByEmail(email))
+        Optional<ClientModel> optionalClient = clientRepository.findByEmail(email);
+        if (optionalClient.isEmpty())
         {
             Logger.log(
                     "WARN",
                     "Trying update client with email: "+email+"but is not registered");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email: "+email+" is not registered");
         }
-        ClientModel client = clientRepository.findByEmail(email);
+        ClientModel client = optionalClient.get();
         client.setName(clientData.name());
         client.setSurname(clientData.surname());
         client.setEmail(clientData.email());
@@ -78,5 +80,9 @@ public class ClientService {
                 "INFO",
                 "Getting all clients of database.");
         return ResponseEntity.status(HttpStatus.OK).body(clients);
+    }
+
+    private void timeElapsed() {
+
     }
 }

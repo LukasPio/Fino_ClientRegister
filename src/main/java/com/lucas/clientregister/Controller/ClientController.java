@@ -1,6 +1,5 @@
 package com.lucas.clientregister.Controller;
 
-import com.lucas.clientregister.utils.ClientRegisterApplication;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.Service.ClientService;
@@ -18,30 +17,18 @@ public class ClientController {
     }
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
-        long actualTime = System.currentTimeMillis();
-        ResponseEntity<List<ClientResponseDTO>> response = clientService.getAllClients();
-        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
-        return response;
+        return clientService.getAllClients();
     }
     @PostMapping
     public ResponseEntity<String> saveClient(@RequestBody ClientRequestDTO clientData) {
-        long actualTime = System.currentTimeMillis();
-        ResponseEntity<String> response = clientService.saveClient(clientData);
-        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
-        return response;
+        return clientService.saveClient(clientData);
     }
     @PutMapping
     public ResponseEntity<String> updateClient(@RequestParam String email, @RequestBody ClientRequestDTO clientData) {
-        long actualTime = System.currentTimeMillis();
-        ResponseEntity<String> response = clientService.updateClient(clientData, email);
-        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
-        return response;
+        return clientService.updateClient(clientData, email);
     }
     @DeleteMapping ("/{email}")
     public ResponseEntity<String> deleteClient(@PathVariable String email) {
-        long actualTime = System.currentTimeMillis();
-        ResponseEntity<String> response = clientService.deleteClient(email);
-        ClientRegisterApplication.applicationLogger.info("Returned in {}ms", System.currentTimeMillis() - actualTime);
-        return response;
+        return clientService.deleteClient(email);
     }
 }

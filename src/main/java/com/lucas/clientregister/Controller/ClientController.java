@@ -2,7 +2,9 @@ package com.lucas.clientregister.Controller;
 
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
+import com.lucas.clientregister.DTO.DisabledClientResponseDTO;
 import com.lucas.clientregister.Service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,9 +13,12 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/clients")
 public class ClientController {
-    private final ClientService clientService;
-    public ClientController(ClientService clientService) {
-        this.clientService = clientService;
+    @Autowired
+    private ClientService clientService;
+
+    @GetMapping(path = "/disabled")
+    public ResponseEntity<List<DisabledClientResponseDTO>> getAllDisabledClients() {
+        return clientService.getAllDisabledClients();
     }
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {

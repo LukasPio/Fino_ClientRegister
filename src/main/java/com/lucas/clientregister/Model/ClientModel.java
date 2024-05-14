@@ -19,7 +19,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class ClientModel {
     @Id
-    private int id;
+    private Integer id;
     private String name;
     private String surname;
     private String email;

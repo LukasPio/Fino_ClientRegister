@@ -2,10 +2,14 @@ package com.lucas.clientregister.Service;
 
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
+import com.lucas.clientregister.DTO.DisabledClientResponseDTO;
+import com.lucas.clientregister.Model.DisabledClientModel;
+import com.lucas.clientregister.Repository.DisabledClientRepository;
 import com.lucas.clientregister.utils.Logger;
 import com.lucas.clientregister.Model.ClientModel;
 import com.lucas.clientregister.Repository.ClientRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,20 +20,18 @@ import java.util.Optional;
 
 @Service
 public class ClientService {
-    private final ClientRepository clientRepository;
-    public ClientService(ClientRepository clientRepository) {
-        this.clientRepository = clientRepository;
-    }
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @Autowired
+    private DisabledClientRepository disabledClientRepository;
+
     public ResponseEntity<String> saveClient(ClientRequestDTO clientData) {
         if (clientRepository.existsByEmail(clientData.email())){
-            Logger.log(
-                    "WARN",
-                    "Trying save a user with email: "+clientData.email()+" but already is registered");
+            Logger.warn("Trying save a user with email: "+clientData.email()+" but already is registered");
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email: "+clientData.email()+" already is registered");
         }
-        Logger.log(
-                "INFO",
-                "Client with email: "+clientData.email()+" was registered successfully");
+        Logger.info("Client with email: "+clientData.email()+" was registered successfully");
         clientRepository.save(new ClientModel(clientData));
         return ResponseEntity.status(HttpStatus.CREATED).body("Client was registered successfully");
     }
@@ -37,9 +39,7 @@ public class ClientService {
         Optional<ClientModel> optionalClient = clientRepository.findByEmail(email);
         if (optionalClient.isEmpty())
         {
-            Logger.log(
-                    "WARN",
-                    "Trying update client with email: "+email+"but is not registered");
+            Logger.warn("Trying update client with email: "+email+"but is not registered");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email: "+email+" is not registered");
         }
         ClientModel client = optionalClient.get();
@@ -49,22 +49,20 @@ public class ClientService {
         client.setBirthdate(clientData.birthdate());
         client.setUpdated_at(new Timestamp(System.currentTimeMillis()));
         clientRepository.save(client);
-        Logger.log(
-                "INFO",
-                "User with email: "+email+" was updated successfully. new email: "+clientData.email());
+        Logger.info("User with email: "+email+" was updated successfully. new email: "+clientData.email());
         return ResponseEntity.status(HttpStatus.OK).body("User was updated successfully");
     }
+
     @Transactional
     public ResponseEntity<String> deleteClient(String email) {
-        if (!clientRepository.existsByEmail(email))
-        {
-            Logger.log(
-                    "WARN",
-                    "Trying delete client with email: "+email+"but not registered");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email: "+email+" is not registered");
+        Optional<ClientModel> clientModel = clientRepository.findByEmail(email);
+        if (clientModel.isEmpty()) {
+            Logger.warn("Trying delete client with email: " + email + "but not registered");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email: " + email + " is not registered");
         }
         clientRepository.deleteByEmail(email);
-        Logger.log("INFO", "Client with email: "+email+" was deleted successfully");
+        disabledClientRepository.save(new DisabledClientModel(clientModel.get()));
+        Logger.info("Client with email: "+email+" was deleted successfully");
         return ResponseEntity.status(HttpStatus.OK).body("Client with email: "+email+" was deleted successfully");
     }
 
@@ -72,12 +70,22 @@ public class ClientService {
         List<ClientModel> clientsModels = clientRepository.findAll();
         List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         if (clientsModels.isEmpty()) {
-            Logger.log("WARN", "Trying to view all clients, but none registered.");
+            Logger.warn("Trying to view all clients, but none registered.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clients);
         }
-        Logger.log(
-                "INFO",
-                "Getting all clients of database.");
+        Logger.info("Getting all clients of database.");
         return ResponseEntity.status(HttpStatus.OK).body(clients);
+    }
+
+
+    public ResponseEntity<List<DisabledClientResponseDTO>> getAllDisabledClients() {
+        List<DisabledClientModel> disabledClients = disabledClientRepository.findAll();
+        List<DisabledClientResponseDTO> disabledClientsData = disabledClients.stream().map(DisabledClientResponseDTO::new).toList();
+        if (disabledClientsData.isEmpty()) {
+            Logger.warn("Trying to view all disabled clients, but not have disabled clients.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(disabledClientsData);
+        }
+        Logger.info("Getting all disable clients of database.");
+        return ResponseEntity.status(HttpStatus.OK).body(disabledClientsData);
     }
 }

@@ -1,6 +1,5 @@
 package com.lucas.clientregister.Service;
 
-import com.lucas.clientregister.ClientRegisterApplication;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.utils.Logger;

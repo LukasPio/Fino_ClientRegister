@@ -1,5 +1,7 @@
 package com.lucas.clientregister.utils;
 
+import com.lucas.clientregister.ClientRegisterApplication;
+
 import java.sql.Timestamp;
 
 public class Logger {
@@ -27,6 +29,8 @@ public class Logger {
                         new Timestamp(System.currentTimeMillis()),
                         level,
                         message
-                );        }
+                );
+                break;
+        }
     }
 }

@@ -5,32 +5,25 @@ import com.lucas.clientregister.ClientRegisterApplication;
 import java.sql.Timestamp;
 
 public class Logger {
-    public static void log(String level, String message) {
-        switch (level) {
-            case "INFO":
-                ClientRegisterApplication.applicationLogger.info(
-                        "\n{\ntimestamp - {}\nlevel - {}\nmessage - {}\n}",
-                        new Timestamp(System.currentTimeMillis()),
-                        level,
-                        message
-                );
-                break;
-            case "WARN":
+    public static void info(String message) {
                 ClientRegisterApplication.applicationLogger.warn(
-                        "\n{\ntimestamp - {}\nlevel - {}\nmessage - {}\n}",
+                        "\n{\ntimestamp - {}\nlevel - INFO\nmessage - {}\n}",
                         new Timestamp(System.currentTimeMillis()),
-                        level,
                         message
                 );
-                break;
-            case "ERROR":
-                ClientRegisterApplication.applicationLogger.error(
-                        "\n{\ntimestamp - {}\nlevel - {}\nmessage - {}\n}",
-                        new Timestamp(System.currentTimeMillis()),
-                        level,
-                        message
-                );
-                break;
-        }
+    }
+    public static void warn(String message) {
+        ClientRegisterApplication.applicationLogger.warn(
+                "\n{\ntimestamp - {}\nlevel - WARN\nmessage - {}\n}",
+                new Timestamp(System.currentTimeMillis()),
+                message
+        );
+    }
+    public static void error(String message) {
+        ClientRegisterApplication.applicationLogger.warn(
+                "\n{\ntimestamp - {}\nlevel - ERROR\nmessage - {}\n}",
+                new Timestamp(System.currentTimeMillis()),
+                message
+        );
     }
 }

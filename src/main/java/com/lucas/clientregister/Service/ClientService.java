@@ -35,6 +35,7 @@ public class ClientService {
         clientRepository.save(new ClientModel(clientData));
         return ResponseEntity.status(HttpStatus.CREATED).body("Client was registered successfully");
     }
+
     public ResponseEntity<String> updateClient(ClientRequestDTO clientData, String email) {
         Optional<ClientModel> optionalClient = clientRepository.findByEmail(email);
         if (optionalClient.isEmpty())
@@ -76,7 +77,6 @@ public class ClientService {
         Logger.info("Getting all clients of database.");
         return ResponseEntity.status(HttpStatus.OK).body(clients);
     }
-
 
     public ResponseEntity<List<DisabledClientResponseDTO>> getAllDisabledClients() {
         List<DisabledClientModel> disabledClients = disabledClientRepository.findAll();

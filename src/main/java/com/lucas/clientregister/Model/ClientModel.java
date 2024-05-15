@@ -1,9 +1,7 @@
 package com.lucas.clientregister.Model;
 
 import com.lucas.clientregister.DTO.ClientRequestDTO;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class ClientModel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
     private String surname;

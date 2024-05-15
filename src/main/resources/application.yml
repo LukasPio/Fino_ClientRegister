@@ -2,8 +2,7 @@ spring:
   jackson:
     time-zone: America/Sao_Paulo
   datasource:
-    driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/client
-    username: root
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://ep-rapid-cake-a4jwcx3i.us-east-1.aws.neon.tech/client?user=client_owner&password=0QHhk9oStwFI&sslmode=require
 server:
   port: 8080

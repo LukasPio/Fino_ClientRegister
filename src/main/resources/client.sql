@@ -12,4 +12,15 @@ CREATE TABLE IF NOT EXISTS clients(
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
 );
 
+CREATE TABLE IF NOT EXISTS disabled_clients(
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    surname VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    birthdate DATE NOT NULL,
+    disabled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP()
+);
+
 SELECT * FROM clients;
+
+SELECT * FROM disabled_clients;

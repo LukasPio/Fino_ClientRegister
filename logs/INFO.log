@@ -9,3 +9,8 @@ timestamp: 2024-05-16 10:09:43.213,level: INFO,message: Getting all clients of d
 timestamp: 2024-05-16 10:11:37.963,level: INFO,message: Getting all clients of database;
 timestamp: 2024-05-16 10:12:23.73,level: INFO,message: Getting all clients of database;
 timestamp: 2024-05-16 10:14:01.151,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:18:46.757,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:18:53.895,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:19:11.31,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:19:13.009,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:26:46.38,level: INFO,message: Get client with email: eduardo.sim@gmail.com successfully;

@@ -34,4 +34,12 @@ public class ClientModel {
         this.created_at = new Timestamp(System.currentTimeMillis());
         this.updated_at = new Timestamp(System.currentTimeMillis());
     }
+
+    public void update(ClientRequestDTO clientData) {
+        this.setName(clientData.name());
+        this.setSurname(clientData.surname());
+        this.setEmail(clientData.email());
+        this.setBirthdate(clientData.birthdate());
+        this.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+    }
 }

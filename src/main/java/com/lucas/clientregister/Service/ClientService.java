@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,8 +30,12 @@ public class ClientService {
             Logger.warn("Trying save a user with email: "+clientData.email()+" but already is registered");
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Email: "+clientData.email()+" already is registered");
         }
-        Logger.info("Client with email: "+clientData.email()+" was registered successfully");
+        if (disabledClientRepository.existsByEmail(clientData.email())) {
+            Logger.warn("Trying save a user with email: "+clientData.email()+" but is disabled");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email: "+clientData.email()+" is disabled contact our support.");
+        }
         clientRepository.save(new ClientModel(clientData));
+        Logger.info("Client with email: "+clientData.email()+" was registered successfully");
         return ResponseEntity.status(HttpStatus.CREATED).body("Client was registered successfully");
     }
 
@@ -40,15 +43,11 @@ public class ClientService {
         Optional<ClientModel> optionalClient = clientRepository.findByEmail(email);
         if (optionalClient.isEmpty())
         {
-            Logger.warn("Trying update client with email: "+email+"but is not registered");
+            Logger.warn("Trying update client with email: "+email+" but is not registered");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Email: "+email+" is not registered");
         }
         ClientModel client = optionalClient.get();
-        client.setName(clientData.name());
-        client.setSurname(clientData.surname());
-        client.setEmail(clientData.email());
-        client.setBirthdate(clientData.birthdate());
-        client.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+        client.update(clientData);
         clientRepository.save(client);
         Logger.info("User with email: "+email+" was updated successfully. new email: "+clientData.email());
         return ResponseEntity.status(HttpStatus.OK).body("User was updated successfully");

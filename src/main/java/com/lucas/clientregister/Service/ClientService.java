@@ -27,7 +27,6 @@ public class ClientService {
 
     public ResponseEntity<Json> saveClient(ClientRequestDTO clientData) {
         long elapsedTime = System.currentTimeMillis();
-        String elapsedTimeFormatted;
         if (clientRepository.existsByEmail(clientData.email())){
             Logger.warn("Trying save a user with email: "+clientData.email()+" but already is registered");
             return ResponseEntity.status(HttpStatus.CONFLICT).body(

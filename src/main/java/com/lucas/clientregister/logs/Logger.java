@@ -9,7 +9,7 @@ public class Logger {
     private static final LogFileWriter logFileWriter = new LogFileWriter("C:\\Users\\lucas\\OneDrive\\Documentos\\programacao\\java\\Fino_ClientRegister\\logs");
 
     public static void info(String message) {
-                ClientRegisterApplication.applicationLogger.warn(
+                ClientRegisterApplication.applicationLogger.info(
                         "\n{\ntimestamp - {}\nlevel - INFO\nmessage - {}\n}",
                         new Timestamp(System.currentTimeMillis()),
                         message
@@ -25,7 +25,7 @@ public class Logger {
         logFileWriter.writeFileLog("WARN", message);
     }
     public static void error(String message) {
-        ClientRegisterApplication.applicationLogger.warn(
+        ClientRegisterApplication.applicationLogger.error(
                 "\n{\ntimestamp - {}\nlevel - ERROR\nmessage - {}\n}",
                 new Timestamp(System.currentTimeMillis()),
                 message

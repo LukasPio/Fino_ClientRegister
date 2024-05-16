@@ -155,4 +155,28 @@ public class ClientService {
                 )
         );
     }
+
+    public ResponseEntity<Json> getClientByEmail(String email) {
+        long elapsedTime = System.currentTimeMillis();
+        Optional<ClientModel> client = clientRepository.findByEmail(email);
+        if (client.isEmpty()) {
+            Logger.warn("Trying to get client with email: " + email + ", but is not registered.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new Json(
+                            "None client registered with email: " + email,
+                            String.valueOf(System.currentTimeMillis() - elapsedTime),
+                            "404 - Not Found"
+                    )
+            );
+        }
+        ClientResponseDTO clientToReturn = new ClientResponseDTO(client.get());
+        Logger.info("Get client with email: " + email + " successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Json(
+                        List.of(clientToReturn),
+                        "Get client with email: " + email + " successfully",
+                        String.valueOf(System.currentTimeMillis() - elapsedTime)
+                )
+        );
+    }
 }

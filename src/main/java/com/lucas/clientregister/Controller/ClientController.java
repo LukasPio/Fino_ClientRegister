@@ -21,6 +21,10 @@ public class ClientController {
     public ResponseEntity<Json> getAllClients() {
         return clientService.getAllClients();
     }
+    @GetMapping(path = "/{email}")
+    public ResponseEntity<Json> getClientByEmail(@PathVariable String email) {
+        return clientService.getClientByEmail(email);
+    }
     @PostMapping
     public ResponseEntity<Json> saveClient(@RequestBody ClientRequestDTO clientData) {
         return clientService.saveClient(clientData);

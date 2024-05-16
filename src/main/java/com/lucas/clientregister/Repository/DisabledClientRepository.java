@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DisabledClientRepository extends JpaRepository<DisabledClientModel, Integer> {
+    boolean existsByEmail(String email);
 }

@@ -1,6 +1,5 @@
 package com.lucas.clientregister;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
 import lombok.Getter;
 import lombok.Setter;

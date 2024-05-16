@@ -1,0 +1,4 @@
+timestamp: 2024-05-15 22:38:34.464,level: WARN,message: Trying update client with email: email but is not registered;
+timestamp: 2024-05-15 22:40:35.88,level: WARN,message: Trying save a user with email: lucaspio.galvao@gmail.com but already is registered;
+timestamp: 2024-05-15 22:42:31.072,level: WARN,message: Trying update client with email: email but is not registered;
+timestamp: 2024-05-15 22:42:37.725,level: WARN,message: Trying update client with email: email@gmail.com but is not registered;

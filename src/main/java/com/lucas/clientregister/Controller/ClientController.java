@@ -28,8 +28,8 @@ public class ClientController {
     public ResponseEntity<String> saveClient(@RequestBody ClientRequestDTO clientData) {
         return clientService.saveClient(clientData);
     }
-    @PutMapping
-    public ResponseEntity<String> updateClient(@RequestParam String email, @RequestBody ClientRequestDTO clientData) {
+    @PutMapping(path = "/{email}")
+    public ResponseEntity<String> updateClient(@PathVariable String email, @RequestBody ClientRequestDTO clientData) {
         return clientService.updateClient(clientData, email);
     }
     @DeleteMapping ("/{email}")

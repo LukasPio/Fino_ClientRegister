@@ -5,7 +5,7 @@ import com.lucas.clientregister.DTO.ClientResponseDTO;
 import com.lucas.clientregister.DTO.DisabledClientResponseDTO;
 import com.lucas.clientregister.Model.DisabledClientModel;
 import com.lucas.clientregister.Repository.DisabledClientRepository;
-import com.lucas.clientregister.utils.Logger;
+import com.lucas.clientregister.logs.Logger;
 import com.lucas.clientregister.Model.ClientModel;
 import com.lucas.clientregister.Repository.ClientRepository;
 import jakarta.transaction.Transactional;
@@ -32,7 +32,7 @@ public class ClientService {
         }
         if (disabledClientRepository.existsByEmail(clientData.email())) {
             Logger.warn("Trying save a user with email: "+clientData.email()+" but is disabled");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email: "+clientData.email()+" is disabled contact our support.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email: "+clientData.email()+" is disabled contact our support");
         }
         clientRepository.save(new ClientModel(clientData));
         Logger.info("Client with email: "+clientData.email()+" was registered successfully");
@@ -70,10 +70,10 @@ public class ClientService {
         List<ClientModel> clientsModels = clientRepository.findAll();
         List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         if (clientsModels.isEmpty()) {
-            Logger.warn("Trying to view all clients, but none registered.");
+            Logger.warn("Trying to view all clients, but none registered");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(clients);
         }
-        Logger.info("Getting all clients of database.");
+        Logger.info("Getting all clients of database");
         return ResponseEntity.status(HttpStatus.OK).body(clients);
     }
 
@@ -81,10 +81,10 @@ public class ClientService {
         List<DisabledClientModel> disabledClients = disabledClientRepository.findAll();
         List<DisabledClientResponseDTO> disabledClientsData = disabledClients.stream().map(DisabledClientResponseDTO::new).toList();
         if (disabledClientsData.isEmpty()) {
-            Logger.warn("Trying to view all disabled clients, but not have disabled clients.");
+            Logger.warn("Trying to view all disabled clients, but not have disabled clients");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(disabledClientsData);
         }
-        Logger.info("Getting all disable clients of database.");
+        Logger.info("Getting all disable clients of database");
         return ResponseEntity.status(HttpStatus.OK).body(disabledClientsData);
     }
 }

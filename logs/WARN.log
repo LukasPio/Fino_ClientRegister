@@ -2,3 +2,6 @@ timestamp: 2024-05-15 22:38:34.464,level: WARN,message: Trying update client wit
 timestamp: 2024-05-15 22:40:35.88,level: WARN,message: Trying save a user with email: lucaspio.galvao@gmail.com but already is registered;
 timestamp: 2024-05-15 22:42:31.072,level: WARN,message: Trying update client with email: email but is not registered;
 timestamp: 2024-05-15 22:42:37.725,level: WARN,message: Trying update client with email: email@gmail.com but is not registered;
+timestamp: 2024-05-15 22:49:08.086,level: WARN,message: Trying update client with email: email@gmail.com but is not registered;
+timestamp: 2024-05-16 09:15:49.894,level: WARN,message: Trying save a user with email: marcelo.korin@gmail.com but already is registered;
+timestamp: 2024-05-16 09:15:56.1,level: WARN,message: Trying save a user with email: marcelo.korin@gmail.com but already is registered;

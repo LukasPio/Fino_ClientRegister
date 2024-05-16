@@ -2,3 +2,10 @@ timestamp: 2024-05-15 22:35:00.595,level: INFO,message: Getting all clients of d
 timestamp: 2024-05-15 22:37:57.546,level: INFO,message: Getting all clients of database.;
 timestamp: 2024-05-15 22:37:59.853,level: INFO,message: Getting all clients of database.;
 timestamp: 2024-05-15 22:38:01.216,level: INFO,message: Getting all clients of database.;
+timestamp: 2024-05-16 09:09:04.071,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 09:10:29.379,level: INFO,message: Client with email: marcelo.korin@gmail.com was registered successfully;
+timestamp: 2024-05-16 09:18:02.23,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:09:43.213,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:11:37.963,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:12:23.73,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-16 10:14:01.151,level: INFO,message: Getting all clients of database;

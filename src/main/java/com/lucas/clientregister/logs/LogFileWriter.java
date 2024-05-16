@@ -14,24 +14,25 @@ public class LogFileWriter {
     }
 
     public void writeFileLog(String level, String message) {
-        createLogFileIfNotExists(level);
-        try (FileWriter fileWriter = new FileWriter(logDirPath + "/" + level + ".log", true)) {
-            Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-            String log = "timestamp: " + timestamp + ",level: " + level + ",message: " + message + ";\n";
-            fileWriter.write(log);
-        } catch (IOException e) {
-            System.out.println("An error occurred writing at a log file. message: " + e.getMessage());
+        if (createLogFileIfNotExists(level)) {
+            try (FileWriter fileWriter = new FileWriter(logDirPath + "/" + level + ".log", true)) {
+                Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+                String log = "timestamp: " + timestamp + ",level: " + level + ",message: " + message + ";\n";
+                fileWriter.write(log);
+            } catch (IOException e) {
+                System.out.println("An error occurred writing at a log file. message: " + e.getMessage());
+            }
         }
     }
 
-    public void createLogFileIfNotExists(String level) {
+    public boolean createLogFileIfNotExists(String level) {
         File logDir = new File(logDirPath);
         if (!logDir.exists()) {
             if (logDir.mkdirs()) {
                 System.out.println("Log directory created successfully.");
             } else {
                 System.out.println("Failed to create log directory.");
-                return;
+                return false;
             }
         }
 
@@ -45,5 +46,7 @@ public class LogFileWriter {
         } catch (IOException e) {
             System.out.println("An error occurred at creating log file. message: " + e.getMessage());
         }
+
+        return true;
     }
 }

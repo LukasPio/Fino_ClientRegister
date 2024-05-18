@@ -39,7 +39,7 @@ public class ClientService {
         }
         if (disabledClientRepository.existsByEmail(clientData.email())) {
             Logger.warn("Trying save a user with email: "+clientData.email()+" but is disabled");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                     new Json(
                             "Email: "+clientData.email()+" is disabled contact our support",
                             String.valueOf(System.currentTimeMillis() - elapsedTime),

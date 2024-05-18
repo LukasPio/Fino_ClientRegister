@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 
 import java.sql.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.Mockito.*;
@@ -160,4 +161,23 @@ class ClientServiceTest {
 
         Assertions.assertEquals(clientService.getClientByEmail(email).getStatusCode(), HttpStatus.NOT_FOUND);
     }
+
+    @Test
+    @DisplayName("Return code 200 when get all registered clients")
+    void getAllClients01(){
+
+        when(clientRepository.findAll()).thenReturn(List.of(new ClientModel()));
+
+        Assertions.assertEquals(clientService.getAllClients().getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when none client is registered")
+    void getAllClients02(){
+
+        when(clientRepository.findAll()).thenReturn(List.of());
+
+        Assertions.assertEquals(clientService.getAllClients().getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
 }

@@ -39,7 +39,7 @@ public class ClientService {
         }
         if (disabledClientRepository.existsByEmail(clientData.email())) {
             Logger.warn("Trying save a user with email: "+clientData.email()+" but is disabled");
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                     new Json(
                             "Email: "+clientData.email()+" is disabled contact our support",
                             String.valueOf(System.currentTimeMillis() - elapsedTime),
@@ -88,7 +88,7 @@ public class ClientService {
         long elapsedTime = System.currentTimeMillis();
         Optional<ClientModel> clientModel = clientRepository.findByEmail(email);
         if (clientModel.isEmpty()) {
-            Logger.warn("Trying delete client with email: " + email + "but not registered");
+            Logger.warn("Trying delete client with email: " + email + " but not registered");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new Json(
                             "Email: " + email + " is not registered",
@@ -111,9 +111,8 @@ public class ClientService {
     public ResponseEntity<Json> getAllClients() {
         long elapsedTime = System.currentTimeMillis();
         List<ClientModel> clientsModels = clientRepository.findAll();
-        List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         if (clientsModels.isEmpty()) {
-            Logger.warn("Trying to view all clients, but none registered");
+            Logger.warn("Trying to view all clients but none registered");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new Json(
                             "None clients are registered",
@@ -122,6 +121,7 @@ public class ClientService {
                     )
             );
         }
+        List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         Logger.info("Getting all clients of database");
         return ResponseEntity.status(HttpStatus.OK).body(
                 new Json(
@@ -137,7 +137,7 @@ public class ClientService {
         List<DisabledClientModel> disabledClients = disabledClientRepository.findAll();
         List<DisabledClientResponseDTO> disabledClientsData = disabledClients.stream().map(DisabledClientResponseDTO::new).toList();
         if (disabledClientsData.isEmpty()) {
-            Logger.warn("Trying to view all disabled clients, but not have disabled clients");
+            Logger.warn("Trying to view all disabled clients but not have disabled clients");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new Json(
                             "None clients are disabled",
@@ -160,7 +160,7 @@ public class ClientService {
         long elapsedTime = System.currentTimeMillis();
         Optional<ClientModel> client = clientRepository.findByEmail(email);
         if (client.isEmpty()) {
-            Logger.warn("Trying to get client with email: " + email + ", but is not registered.");
+            Logger.warn("Trying to get client with email: " + email + " but is not registered.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new Json(
                             "None client registered with email: " + email,

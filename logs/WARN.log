@@ -94,3 +94,12 @@ timestamp: 2024-05-18 20:12:11.575,level: WARN,message: Trying to view all clien
 timestamp: 2024-05-18 20:12:11.601,level: WARN,message: Trying save a user with email: lucas@gmail.com but is disabled;
 timestamp: 2024-05-18 20:12:11.608,level: WARN,message: Trying save a user with email: lucas@gmail.com but already is registered;
 timestamp: 2024-05-18 20:12:11.621,level: WARN,message: Trying update client with email: lucas@gmail.com but is not registered;
+timestamp: 2024-05-18 20:13:19.311,level: WARN,message: Trying delete client with email: lucas@gmail.com but not registered;
+timestamp: 2024-05-18 20:13:19.346,level: WARN,message: Trying to view all disabled clients but not have disabled clients;
+timestamp: 2024-05-18 20:13:19.359,level: WARN,message: Trying to get client with email: lucas@gmail.com but is not registered.;
+timestamp: 2024-05-18 20:13:19.376,level: WARN,message: Trying to view all clients but none registered;
+timestamp: 2024-05-18 20:13:19.403,level: WARN,message: Trying save a user with email: lucas@gmail.com but is disabled;
+timestamp: 2024-05-18 20:13:19.409,level: WARN,message: Trying save a user with email: lucas@gmail.com but already is registered;
+timestamp: 2024-05-18 20:13:19.422,level: WARN,message: Trying update client with email: lucas@gmail.com but is not registered;
+timestamp: 2024-05-18 20:28:50.813,level: WARN,message: Trying save a user with email: jorge.galvao@gmail.com but already is registered;
+timestamp: 2024-05-18 20:31:43.87,level: WARN,message: Trying save a user with email: jorge.galvao@gmail.com but already is registered;

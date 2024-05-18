@@ -94,3 +94,12 @@ timestamp: 2024-05-18 20:12:11.552,level: INFO,message: Get client with email: l
 timestamp: 2024-05-18 20:12:11.566,level: INFO,message: Getting all clients of database;
 timestamp: 2024-05-18 20:12:11.583,level: INFO,message: Client with email: lucas@gmail.com was registered successfully;
 timestamp: 2024-05-18 20:12:11.616,level: INFO,message: User with email: lucas@gmail.com was updated successfully. new email: lucas@gmail.com;
+timestamp: 2024-05-18 20:13:19.275,level: INFO,message: Client with email: lucas@gmail.com was deleted successfully;
+timestamp: 2024-05-18 20:13:19.32,level: INFO,message: Getting all disable clients of database;
+timestamp: 2024-05-18 20:13:19.353,level: INFO,message: Get client with email: lucas@gmail.com successfully;
+timestamp: 2024-05-18 20:13:19.368,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-18 20:13:19.385,level: INFO,message: Client with email: lucas@gmail.com was registered successfully;
+timestamp: 2024-05-18 20:13:19.416,level: INFO,message: User with email: lucas@gmail.com was updated successfully. new email: lucas@gmail.com;
+timestamp: 2024-05-18 20:22:52.14,level: INFO,message: Getting all clients of database;
+timestamp: 2024-05-18 20:23:13.291,level: INFO,message: Client with email: jorge.galvao@gmail.com was registered successfully;
+timestamp: 2024-05-18 20:31:28.565,level: INFO,message: Getting all clients of database;

@@ -40,8 +40,6 @@ public class LogFileWriter {
         try {
             if (file.createNewFile()) {
                 System.out.println("Log file created successfully.");
-            } else {
-                System.out.println("Log file already exists.");
             }
         } catch (IOException e) {
             System.out.println("An error occurred at creating log file. message: " + e.getMessage());

@@ -163,7 +163,7 @@ class ClientServiceTest {
     }
 
     @Test
-    @DisplayName("Return code 200 when get all registered clients")
+    @DisplayName("Return code 200 when get all registered clients successfully")
     void getAllClients01(){
 
         when(clientRepository.findAll()).thenReturn(List.of(new ClientModel()));
@@ -172,12 +172,30 @@ class ClientServiceTest {
     }
 
     @Test
-    @DisplayName("Return code 404 when none client is registered")
+    @DisplayName("Return code 404 when try get all clients but none client is registered")
     void getAllClients02(){
 
         when(clientRepository.findAll()).thenReturn(List.of());
 
         Assertions.assertEquals(clientService.getAllClients().getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("Return code 200 when get all disabled clients successfully")
+    void getAllDisabledClients01(){
+
+        when(disabledClientRepository.findAll()).thenReturn(List.of(new DisabledClientModel()));
+
+        Assertions.assertEquals(clientService.getAllDisabledClients().getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when try get all clients but none client is disabled")
+    void getAllDisabledClients02(){
+
+        when(disabledClientRepository.findAll()).thenReturn(List.of());
+
+        Assertions.assertEquals(clientService.getAllDisabledClients().getStatusCode(), HttpStatus.NOT_FOUND);
     }
 
 }

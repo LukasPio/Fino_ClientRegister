@@ -1,6 +1,8 @@
 package com.lucas.clientregister.Service;
 
 import com.lucas.clientregister.DTO.ClientRequestDTO;
+import com.lucas.clientregister.Model.ClientModel;
+import com.lucas.clientregister.Model.DisabledClientModel;
 import com.lucas.clientregister.Repository.ClientRepository;
 import com.lucas.clientregister.Repository.DisabledClientRepository;
 import org.junit.jupiter.api.Assertions;
@@ -13,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 
 import java.sql.Date;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 
@@ -38,7 +41,7 @@ class ClientServiceTest {
 
     @Test
     @DisplayName("Return code 200 when a client is successfully registered")
-    void saveClient01() {
+    void saveClient01(){
         ClientRequestDTO clientData = new ClientRequestDTO(
                 "lucas",
                 "pio",
@@ -84,5 +87,77 @@ class ClientServiceTest {
         when(disabledClientRepository.existsByEmail(clientData.email())).thenReturn(false);
 
         Assertions.assertEquals(clientService.saveClient(clientData).getStatusCode(), HttpStatus.CONFLICT);
+    }
+
+    @Test
+    @DisplayName("Return code 200 when a client is updated successfully")
+    void updateClient01(){
+        ClientRequestDTO clientData = new ClientRequestDTO(
+                "lucas",
+                "pio",
+                "lucas@gmail.com",
+                new Date(9999999)
+        );
+
+        String originalClientEmail = "lucas@gmail.com";
+
+        when(clientRepository.findByEmail(clientData.email())).thenReturn(Optional.of(new ClientModel()));
+
+        Assertions.assertEquals(clientService.updateClient(clientData, originalClientEmail).getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when try update a client that is not registered")
+    void updateClient02(){
+        ClientRequestDTO clientData = new ClientRequestDTO(
+                "lucas",
+                "pio",
+                "lucas@gmail.com",
+                new Date(9999999)
+        );
+
+        String originalClientEmail = "lucas@gmail.com";
+
+        when(clientRepository.findByEmail(clientData.email())).thenReturn(Optional.empty());
+
+        Assertions.assertEquals(clientService.updateClient(clientData, originalClientEmail).getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("Return code 200 when a client is deleted successfully")
+    void deleteClient01(){
+        String emailToDelete = "lucas@gmail.com";
+        ClientModel clientModel = new ClientModel();
+        when(clientRepository.findByEmail(emailToDelete)).thenReturn(Optional.of(clientModel));
+        when(disabledClientRepository.save(new DisabledClientModel(clientModel))).thenReturn(any());
+        Assertions.assertEquals(clientService.deleteClient(emailToDelete).getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when try delete a client that is not registered")
+    void deleteClient02(){
+        String emailToDelete = "lucas@gmail.com";
+        when(clientRepository.findByEmail(emailToDelete)).thenReturn(Optional.empty());
+        Assertions.assertEquals(clientService.deleteClient(emailToDelete).getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("Return code 200 when a client is got successfully")
+    void getClientByEmail01(){
+        String email = "lucas@gmail.com";
+
+        when(clientRepository.findByEmail(email)).thenReturn(Optional.of(new ClientModel()));
+
+        Assertions.assertEquals(clientService.getClientByEmail(email).getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when try get a client that is not registered")
+    void getClientByEmail02(){
+        String email = "lucas@gmail.com";
+
+        when(clientRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        Assertions.assertEquals(clientService.getClientByEmail(email).getStatusCode(), HttpStatus.NOT_FOUND);
     }
 }

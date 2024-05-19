@@ -1,19 +1,21 @@
 package com.lucas.clientregister.Service;
 
+import com.lucas.clientregister.DTO.ClientListResponseDTO;
 import com.lucas.clientregister.DTO.ClientRequestDTO;
 import com.lucas.clientregister.DTO.ClientResponseDTO;
-import com.lucas.clientregister.DTO.DisabledClientResponseDTO;
+import com.lucas.clientregister.DTO.DisabledClientListResponseDTO;
 import com.lucas.clientregister.Json;
+import com.lucas.clientregister.Model.ClientModel;
 import com.lucas.clientregister.Model.DisabledClientModel;
+import com.lucas.clientregister.Repository.ClientRepository;
 import com.lucas.clientregister.Repository.DisabledClientRepository;
 import com.lucas.clientregister.logs.Logger;
-import com.lucas.clientregister.Model.ClientModel;
-import com.lucas.clientregister.Repository.ClientRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,16 +39,10 @@ public class ClientService {
                             )
             );
         }
-        if (disabledClientRepository.existsByEmail(clientData.email())) {
-            Logger.warn("Trying save a user with email: "+clientData.email()+" but is disabled");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    new Json(
-                            "Email: "+clientData.email()+" is disabled contact our support",
-                            String.valueOf(System.currentTimeMillis() - elapsedTime),
-                            "401 - Unauthorized"
-                    )
-            );
-        }
+
+        if (disabledClientRepository.existsByEmail(clientData.email()))
+                disabledClientRepository.deleteByEmail(clientData.email());
+
         clientRepository.save(new ClientModel(clientData));
         Logger.info("Client with email: "+clientData.email()+" was registered successfully");
         return ResponseEntity.status(HttpStatus.CREATED).body(
@@ -121,11 +117,10 @@ public class ClientService {
                     )
             );
         }
-        List<ClientResponseDTO> clients = clientsModels.stream().map(ClientResponseDTO::new).toList();
         Logger.info("Getting all clients of database");
         return ResponseEntity.status(HttpStatus.OK).body(
                 new Json(
-                        clients,
+                        new ClientListResponseDTO(clientsModels),
                         "All clients get successfully",
                         String.valueOf(System.currentTimeMillis() - elapsedTime)
                 )
@@ -135,8 +130,7 @@ public class ClientService {
     public ResponseEntity<Json> getAllDisabledClients() {
         long elapsedTime = System.currentTimeMillis();
         List<DisabledClientModel> disabledClients = disabledClientRepository.findAll();
-        List<DisabledClientResponseDTO> disabledClientsData = disabledClients.stream().map(DisabledClientResponseDTO::new).toList();
-        if (disabledClientsData.isEmpty()) {
+        if (disabledClients.isEmpty()) {
             Logger.warn("Trying to view all disabled clients but not have disabled clients");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new Json(
@@ -149,7 +143,7 @@ public class ClientService {
         Logger.info("Getting all disable clients of database");
         return ResponseEntity.status(HttpStatus.OK).body(
                 new Json(
-                        disabledClientsData.toString(),
+                        new DisabledClientListResponseDTO(disabledClients),
                         "Getting all clients successfully",
                         String.valueOf(System.currentTimeMillis() - elapsedTime)
                 )
@@ -173,8 +167,34 @@ public class ClientService {
         Logger.info("Get client with email: " + email + " successfully");
         return ResponseEntity.status(HttpStatus.OK).body(
                 new Json(
-                        List.of(clientToReturn),
+                        clientToReturn,
                         "Get client with email: " + email + " successfully",
+                        String.valueOf(System.currentTimeMillis() - elapsedTime)
+                )
+        );
+    }
+    @Transactional
+    public ResponseEntity<Json> recoveryClient(String email) {
+        long elapsedTime = System.currentTimeMillis();
+        Optional<DisabledClientModel> client = disabledClientRepository.findByEmail(email);
+        if (client.isEmpty()) {
+            Logger.warn("Trying to recovery client with email: "+ email +" but is not disabled.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                    new Json(
+                            "None client disabled with email: " + email,
+                            String.valueOf(System.currentTimeMillis() - elapsedTime),
+                            "404 - Not Found"
+                    )
+            );
+        }
+        ClientModel clientModel = new ClientModel(client.get());
+        disabledClientRepository.deleteByEmail(email);
+        clientRepository.save(clientModel);
+
+        Logger.info("Recovery client with email: " + email + " successfully");
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new Json(
+                        "Recovery client disabled at: "+ client.get().getDisabled_at() +" with email: " + email + " successfully",
                         String.valueOf(System.currentTimeMillis() - elapsedTime)
                 )
         );

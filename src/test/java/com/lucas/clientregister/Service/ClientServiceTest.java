@@ -59,24 +59,8 @@ class ClientServiceTest {
     }
 
     @Test
-    @DisplayName("Return code 401 when client's email is disabled")
-    void saveClient02(){
-        ClientRequestDTO clientData = new ClientRequestDTO(
-                "lucas",
-                "pio",
-                "lucas@gmail.com",
-                new Date(9999999)
-        );
-
-        when(clientRepository.existsByEmail(clientData.email())).thenReturn(false);
-        when(disabledClientRepository.existsByEmail(clientData.email())).thenReturn(true);
-
-        Assertions.assertEquals(clientService.saveClient(clientData).getStatusCode(), HttpStatus.UNAUTHORIZED);
-    }
-
-    @Test
     @DisplayName("Return code 409 when client's email already is registered")
-    void saveClient03(){
+    void saveClient02(){
         ClientRequestDTO clientData = new ClientRequestDTO(
                 "lucas",
                 "pio",
@@ -196,6 +180,26 @@ class ClientServiceTest {
         when(disabledClientRepository.findAll()).thenReturn(List.of());
 
         Assertions.assertEquals(clientService.getAllDisabledClients().getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    @DisplayName("Return code 200 when recovery a disabled client")
+    void recoverClient01(){
+        String email = "lucas@gmail.com";
+
+        when(disabledClientRepository.findByEmail(email)).thenReturn(Optional.of(new DisabledClientModel()));
+
+        Assertions.assertEquals(clientService.recoveryClient(email).getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when try recovery a disabled client that is not disabled")
+    void recoverClient02(){
+        String email = "lucas@gmail.com";
+
+        when(disabledClientRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        Assertions.assertEquals(clientService.recoveryClient(email).getStatusCode(), HttpStatus.NOT_FOUND);
     }
 
 }

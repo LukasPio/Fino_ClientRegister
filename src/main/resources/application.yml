@@ -1,8 +1,14 @@
 spring:
   jackson:
     time-zone: America/Sao_Paulo
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://ep-rapid-cake-a4jwcx3i.us-east-1.aws.neon.tech/client?user=client_owner&password=0QHhk9oStwFI&sslmode=require
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/client
+    username: admin
+    password: root
 server:
   port: 8080

@@ -1,7 +1,7 @@
 CREATE DATABASE client;
 
 -- Use a base de dados client
-\c client;
+USE client;
 
 -- Crie a tabela clients
 CREATE TABLE IF NOT EXISTS clients(

@@ -24,6 +24,7 @@ public class DisabledClientModel {
     private String email;
     private Date birthdate;
     private Timestamp disabled_at;
+    private Timestamp created_at;
 
     public DisabledClientModel(ClientModel clientModel) {
         this.id = clientModel.getId();
@@ -32,5 +33,6 @@ public class DisabledClientModel {
         this.email = clientModel.getEmail();
         this.birthdate = clientModel.getBirthdate();
         this.disabled_at = new Timestamp(System.currentTimeMillis());
+        this.created_at = clientModel.getCreated_at();
     }
 }

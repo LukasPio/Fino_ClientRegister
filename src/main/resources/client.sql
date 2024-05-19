@@ -21,7 +21,8 @@ CREATE TABLE IF NOT EXISTS disabled_clients(
     surname VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     birthdate DATE NOT NULL,
-    disabled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    disabled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP
 );
 
 -- Mostre os dados das tabelas

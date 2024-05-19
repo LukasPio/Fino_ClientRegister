@@ -182,4 +182,24 @@ class ClientServiceTest {
         Assertions.assertEquals(clientService.getAllDisabledClients().getStatusCode(), HttpStatus.NOT_FOUND);
     }
 
+    @Test
+    @DisplayName("Return code 200 when recovery a disabled client")
+    void recoverClient01(){
+        String email = "lucas@gmail.com";
+
+        when(disabledClientRepository.findByEmail(email)).thenReturn(Optional.of(new DisabledClientModel()));
+
+        Assertions.assertEquals(clientService.recoveryClient(email).getStatusCode(), HttpStatus.OK);
+    }
+
+    @Test
+    @DisplayName("Return code 404 when try recovery a disabled client that is not disabled")
+    void recoverClient02(){
+        String email = "lucas@gmail.com";
+
+        when(disabledClientRepository.findByEmail(email)).thenReturn(Optional.empty());
+
+        Assertions.assertEquals(clientService.recoveryClient(email).getStatusCode(), HttpStatus.NOT_FOUND);
+    }
+
 }

@@ -37,16 +37,10 @@ public class ClientService {
                             )
             );
         }
-        if (disabledClientRepository.existsByEmail(clientData.email())) {
-            Logger.warn("Trying save a user with email: "+clientData.email()+" but is disabled");
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
-                    new Json(
-                            "Email: "+clientData.email()+" is disabled contact our support",
-                            String.valueOf(System.currentTimeMillis() - elapsedTime),
-                            "401 - Unauthorized"
-                    )
-            );
-        }
+
+        if (disabledClientRepository.existsByEmail(clientData.email()))
+                disabledClientRepository.deleteByEmail(clientData.email());
+
         clientRepository.save(new ClientModel(clientData));
         Logger.info("Client with email: "+clientData.email()+" was registered successfully");
         return ResponseEntity.status(HttpStatus.CREATED).body(

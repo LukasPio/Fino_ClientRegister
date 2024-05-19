@@ -40,7 +40,7 @@ public class ClientModel {
         this.surname = disabledClientModel.getSurname();
         this.email = disabledClientModel.getEmail();
         this.birthdate = disabledClientModel.getBirthdate();
-        this.created_at = new Timestamp(System.currentTimeMillis());
+        this.created_at = disabledClientModel.getCreated_at();
         this.updated_at = new Timestamp(System.currentTimeMillis());
     }
 

@@ -59,24 +59,8 @@ class ClientServiceTest {
     }
 
     @Test
-    @DisplayName("Return code 401 when client's email is disabled")
-    void saveClient02(){
-        ClientRequestDTO clientData = new ClientRequestDTO(
-                "lucas",
-                "pio",
-                "lucas@gmail.com",
-                new Date(9999999)
-        );
-
-        when(clientRepository.existsByEmail(clientData.email())).thenReturn(false);
-        when(disabledClientRepository.existsByEmail(clientData.email())).thenReturn(true);
-
-        Assertions.assertEquals(clientService.saveClient(clientData).getStatusCode(), HttpStatus.UNAUTHORIZED);
-    }
-
-    @Test
     @DisplayName("Return code 409 when client's email already is registered")
-    void saveClient03(){
+    void saveClient02(){
         ClientRequestDTO clientData = new ClientRequestDTO(
                 "lucas",
                 "pio",

@@ -173,12 +173,12 @@ public class ClientService {
                 )
         );
     }
-
+    @Transactional
     public ResponseEntity<Json> recoveryClient(String email) {
         long elapsedTime = System.currentTimeMillis();
         Optional<DisabledClientModel> client = disabledClientRepository.findByEmail(email);
         if (client.isEmpty()) {
-            Logger.warn("Trying to recovery client with email: " + email + " but is not disabled.");
+            Logger.warn("Trying to recovery client with email: "+ email +" but is not disabled.");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                     new Json(
                             "None client disabled with email: " + email,
@@ -188,7 +188,7 @@ public class ClientService {
             );
         }
         ClientModel clientModel = new ClientModel(client.get());
-        disabledClientRepository.delete(client.get());
+        disabledClientRepository.deleteByEmail(email);
         clientRepository.save(clientModel);
 
         Logger.info("Recovery client with email: " + email + " successfully");

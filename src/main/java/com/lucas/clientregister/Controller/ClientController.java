@@ -25,8 +25,8 @@ public class ClientController {
     public ResponseEntity<Json> getClientByEmail(@PathVariable String email) {
         return clientService.getClientByEmail(email);
     }
-    @PostMapping(path = "/recovery")
-    private ResponseEntity<Json> recoveryClient(@RequestBody String email) {
+    @PostMapping(path = "/recovery/{email}")
+    private ResponseEntity<Json> recoveryClient(@PathVariable String email) {
         return clientService.recoveryClient(email);
     }
     @PostMapping

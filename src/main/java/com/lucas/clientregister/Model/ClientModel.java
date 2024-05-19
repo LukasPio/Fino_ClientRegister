@@ -35,6 +35,15 @@ public class ClientModel {
         this.updated_at = new Timestamp(System.currentTimeMillis());
     }
 
+    public ClientModel(DisabledClientModel disabledClientModel) {
+        this.name = disabledClientModel.getName();
+        this.surname = disabledClientModel.getSurname();
+        this.email = disabledClientModel.getEmail();
+        this.birthdate = disabledClientModel.getBirthdate();
+        this.created_at = new Timestamp(System.currentTimeMillis());
+        this.updated_at = new Timestamp(System.currentTimeMillis());
+    }
+
     public void update(ClientRequestDTO clientData) {
         this.setName(clientData.name());
         this.setSurname(clientData.surname());
